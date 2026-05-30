@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#071133;
+            color:white;
+            padding:30px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-bottom:30px;
+        }
+
+        th,td{
+            border:1px solid white;
+            padding:10px;
+            text-align:center;
+        }
+
+        input{
+            padding:10px;
+            width:200px;
+        }
+
+        button{
+            padding:10px 20px;
+            background:#2563eb;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+
+        h1{
+            color:#22c55e;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<h2>Add Parking Slot</h2>
+
+<form action="/add_slot" method="POST">
+
+    <input
+        type="text"
+        name="slot"
+        placeholder="Enter Slot Number"
+        required
+    >
+
+    <button type="submit">
+        Add Slot
+    </button>
+
+</form>
+
+<br>
+
+<h2>Users</h2>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Username</th>
+<th>Password</th>
+<th>Role</th>
+</tr>
+
+{% for user in users %}
+<tr>
+<td>{{ user[0] }}</td>
+<td>{{ user[1] }}</td>
+<td>{{ user[2] }}</td>
+<td>{{ user[3] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<h2>Parking Slots</h2>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Slot Number</th>
+    <th>Status</th>
+    <th>Update</th>
+    <th>Delete</th>
+</tr>
+
+{% for slot in slots %}
+<tr>
+
+    <td>{{ slot[0] }}</td>
+    <td>{{ slot[1] }}</td>
+    <td>{{ slot[2] }}</td>
+
+    <td>
+        <form action="/update_slot/{{ slot[0] }}" method="POST">
+            <button type="submit">
+                Change Status
+            </button>
+        </form>
+    </td>
+
+    <td>
+        <form action="/delete_slot/{{ slot[0] }}" method="POST">
+            <button type="submit">
+                Delete
+            </button>
+        </form>
+    </td>
+
+</tr>
+{% endfor %}
+
+</table>
+<h2>Bookings</h2>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>User ID</th>
+<th>Slot ID</th>
+</tr>
+
+{% for booking in bookings %}
+<tr>
+<td>{{ booking[0] }}</td>
+<td>{{ booking[1] }}</td>
+<td>{{ booking[2] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
