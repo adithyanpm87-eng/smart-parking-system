@@ -1,154 +1,48 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Admin Dashboard</title>
+{% block content %}
 
-    <style>
+<h2>Admin Dashboard</h2>
 
-        body{
-            font-family:Arial;
-            background:#071133;
-            color:white;
-            padding:30px;
-        }
+<div class="card bg-black text-white p-4 mt-3">
 
-        table{
-            width:100%;
-            border-collapse:collapse;
-            margin-bottom:30px;
-        }
+    <h4>Parking Slots</h4>
 
-        th,td{
-            border:1px solid white;
-            padding:10px;
-            text-align:center;
-        }
+    <form action="/add_slot" method="POST" class="d-flex mb-3">
+        <input type="text" name="slot" class="form-control me-2" placeholder="Enter Slot Number" required>
+        <button class="btn btn-success">Add</button>
+    </form>
 
-        input{
-            padding:10px;
-            width:200px;
-        }
+    <table class="table table-dark table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Slot</th>
+            <th>Status</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
 
-        button{
-            padding:10px 20px;
-            background:#2563eb;
-            color:white;
-            border:none;
-            cursor:pointer;
-        }
+        {% for slot in slots %}
+        <tr>
+            <td>{{ slot[0] }}</td>
+            <td>{{ slot[1] }}</td>
+            <td>{{ slot[2] }}</td>
 
-        h1{
-            color:#22c55e;
-        }
+            <td>
+                <form action="/update_slot/{{ slot[0] }}" method="POST">
+                    <button class="btn btn-warning btn-sm">Change</button>
+                </form>
+            </td>
 
-    </style>
+            <td>
+                <form action="/delete_slot/{{ slot[0] }}" method="POST">
+                    <button class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
-</head>
+</div>
 
-<body>
-
-<h1>Admin Dashboard</h1>
-
-<h2>Add Parking Slot</h2>
-
-<form action="/add_slot" method="POST">
-
-    <input
-        type="text"
-        name="slot"
-        placeholder="Enter Slot Number"
-        required
-    >
-
-    <button type="submit">
-        Add Slot
-    </button>
-
-</form>
-
-<br>
-
-<h2>Users</h2>
-
-<table>
-
-<tr>
-<th>ID</th>
-<th>Username</th>
-<th>Password</th>
-<th>Role</th>
-</tr>
-
-{% for user in users %}
-<tr>
-<td>{{ user[0] }}</td>
-<td>{{ user[1] }}</td>
-<td>{{ user[2] }}</td>
-<td>{{ user[3] }}</td>
-</tr>
-{% endfor %}
-
-</table>
-
-<h2>Parking Slots</h2>
-
-<table border="1">
-
-<tr>
-    <th>ID</th>
-    <th>Slot Number</th>
-    <th>Status</th>
-    <th>Update</th>
-    <th>Delete</th>
-</tr>
-
-{% for slot in slots %}
-<tr>
-
-    <td>{{ slot[0] }}</td>
-    <td>{{ slot[1] }}</td>
-    <td>{{ slot[2] }}</td>
-
-    <td>
-        <form action="/update_slot/{{ slot[0] }}" method="POST">
-            <button type="submit">
-                Change Status
-            </button>
-        </form>
-    </td>
-
-    <td>
-        <form action="/delete_slot/{{ slot[0] }}" method="POST">
-            <button type="submit">
-                Delete
-            </button>
-        </form>
-    </td>
-
-</tr>
-{% endfor %}
-
-</table>
-<h2>Bookings</h2>
-
-<table>
-
-<tr>
-<th>ID</th>
-<th>User ID</th>
-<th>Slot ID</th>
-</tr>
-
-{% for booking in bookings %}
-<tr>
-<td>{{ booking[0] }}</td>
-<td>{{ booking[1] }}</td>
-<td>{{ booking[2] }}</td>
-</tr>
-{% endfor %}
-
-</table>
-
-</body>
-</html>
+{% endblock %}

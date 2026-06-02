@@ -1,33 +1,12 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Success</title>
+{% block content %}
 
-    <style>
+<div class="card bg-black text-white p-5 text-center">
+    <h2 class="text-success">✅ Parking Slot Booked Successfully</h2>
 
-        body{
-            background:#06142e;
-            color:white;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            font-family:Arial;
-        }
+    <a href="/" class="btn btn-primary mt-3">Book Another</a>
+    <a href="/history" class="btn btn-outline-light mt-3">View History</a>
+</div>
 
-        h1{
-            color:#22c55e;
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-    <h1>Parking Slot Booked Successfully!</h1>
-
-</body>
-
-</html>
+{% endblock %}
